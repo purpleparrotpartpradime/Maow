@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Click Me</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  #overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  #dot {
+    width: 140px;
+    height: 140px;
+    background: red;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  #player {
+    display: none;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+
+<div id="overlay">
+  <div id="dot">click me</div>
+</div>
+
+<div id="player"></div>
+
+<script>
+  let player;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      width: '100%',
+      height: '100%',
+      videoId: 'OjNpRbNdR7E',
+      playerVars: {
+        autoplay: 1,
+        controls: 1,
+        rel: 0,
+        playsinline: 1
+      },
+      events: {
+        onReady: (e) => {
+          e.target.playVideo();
+          e.target.setVolume(100);
+        }
+      }
+    });
+  }
+
+  document.getElementById('overlay').addEventListener('click', () => {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('player').style.display = 'block';
+
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.body.appendChild(tag);
+  });
+</script>
+
+</body>
+</html>
